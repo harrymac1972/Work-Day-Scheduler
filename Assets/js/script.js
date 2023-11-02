@@ -3,10 +3,34 @@
 // in the html.
 
 
+class Banner{
+
+  initHead() {
+    var headCon = $("#head-con");
+    headCon.attr("class","p-5 mb-4 text-center");
+    var headTitle = $("<h1>");
+    headTitle.attr("class","display-3");
+    headTitle.text("Work Day Scheduler");
+    $("#head-con").append(headTitle);
+    var headP1 = $("<p>");
+    headP1.attr("class","lead");
+    headP1.text("A simple calendar app for scheduling your work day");
+    $("#head-con").append(headP1);
+    var headP2 = $("<p>");
+    headP2.attr("id","currentDay");
+    headP2.attr("class","lead");
+    headP2.text("[DATE HERE Bucko!]");
+    $("#head-con").append(headP2);
+  }
+
+}
+var banner = new Banner();
+
+
 class Row{
   
   createTimeRows() {
-    var mainCon = $("#main-con");    
+    var mainCon = $("#main-con");
     mainCon.attr("class","container-fluid px-5");
     for (var militaryTime=9; militaryTime<18; militaryTime++){
       var miliTm = militaryTime;
@@ -97,6 +121,7 @@ var clock = new Clock();
 
 
 function main(){
+  banner.initHead();
   row.createTimeRows();
 }
 
@@ -105,6 +130,14 @@ main();
 
 
 
+
+
+
+
+/* <header class="p-5 mb-4">
+<h1 class="display-3">Work Day Scheduler</h1>
+<p class="lead">A simple calendar app for scheduling your work day</p>
+<p id="currentDay" class="lead">[ DATE GOES HERE ]</p> */
 
 
 
