@@ -5,12 +5,11 @@
 
 class Row{
   
-  constructor(){
-    this.testID = 955;
-  }
-
   createTimeRows() {
-    for (var miliTm=9; miliTm<18; miliTm++){ // military time
+    var mainCon = $("#main-con");    
+    mainCon.attr("class","container-fluid px-5");
+    for (var militaryTime=9; militaryTime<18; militaryTime++){
+      var miliTm = militaryTime;
       this.createTimeRowOuterDiv(miliTm);
     }
   }
@@ -19,10 +18,9 @@ class Row{
     var rowDiv = $("<div>");
     var hour = "hour-" + miliTm;
     rowDiv.attr("id",hour);
-    var outClassStr = "row time-block";
-    outClassStr += " past"; // [APPLY LOGIC TO THIS LATER]
+    var outClassStr = "row time-block ";
+    outClassStr += clock.getTimeRowTense(miliTm);
     rowDiv.attr("class",outClassStr);
-    rowDiv.text(`HiYa! ${hour}`);
     $("#main-con").append(rowDiv);
     this.createTimeRowTimeDiv(miliTm,rowDiv);
   }
@@ -35,6 +33,26 @@ class Row{
     timeDiv.attr("class",timeClassStr);
     timeDiv.text(clock.getAmPmTime(miliTm));
     $(rowDiv).append(timeDiv);
+    this.createTimeRowTextArea(rowDiv);
+  }
+
+  createTimeRowTextArea(rowDiv){    
+    var textArea = $("<textarea>");
+    textArea.attr("class","col-8 col-md-10 description");
+    textArea.attr("rows",3);
+    $(rowDiv).append(textArea);
+    this.createTimeRowButton(rowDiv);
+  }
+
+  createTimeRowButton(rowDiv){
+    var timeBtn = $("<btn>");
+    timeBtn.attr("class","btn saveBtn col-2 col-md-1");
+    timeBtn.attr("aria-label","save");
+    $(rowDiv).append(timeBtn);
+    var italicStuff = $("<i>");
+    italicStuff.attr("class","fas fa-save");
+    italicStuff.attr("aria-hidden","true");
+    $(timeBtn).append(italicStuff);
   }
 
 }
@@ -55,11 +73,39 @@ class Clock{
     return rtnStr;
   }
 
+  getNowHour(){
+    var nowDate = new Date();
+    var nowHour = nowDate.getHours();
+    return nowHour;
+  }
+
+  getTimeRowTense(miliTm){
+    var nowHour = this.getNowHour();
+    if (miliTm < nowHour){
+      return "past";
+    }
+    if (miliTm == nowHour){
+      return "present";
+    }
+    return "future";
+  }
+
 }
 var clock = new Clock();
 
-
 row.createTimeRows();
+
+
+
+
+
+
+
+
+
+
+
+
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -85,10 +131,10 @@ $(function () {
 
 
 
-{/* <div id="hour-9" class="row time-block past">
+/* {<div id="hour-9" class="row time-block past">
 <div class="col-2 col-md-1 hour text-center py-3">9AM</div>
 <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
 <button class="btn saveBtn col-2 col-md-1" aria-label="save">
   <i class="fas fa-save" aria-hidden="true"></i>
 </button>
-</div> */}
+</div>}*/
