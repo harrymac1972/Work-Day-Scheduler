@@ -44,7 +44,7 @@ var row = new Row();
 class Clock{
 
   getAmPmTime(miliTm){
-    if (miliTm<12){
+    if (miliTm < 12){
       var rtnStr = miliTm + " AM";
     } else {
       if (miliTm > 12){
