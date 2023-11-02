@@ -3,6 +3,13 @@ body {
   font-size: 16px;
 }
 
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 textarea {
   background: transparent;
   border: none;

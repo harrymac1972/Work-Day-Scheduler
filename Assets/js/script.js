@@ -1,6 +1,66 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+
+
+class Row{
+  
+  constructor(){
+    this.testID = 955;
+  }
+
+  createTimeRows() {
+    for (var i=9; i<18; i++){ // military time
+      this.createTimeRowOuterDiv(i);
+    }
+  }
+
+  createTimeRowOuterDiv(i){
+    var rowDiv = $("<div>");
+    var hour = "hour-" + i;
+    rowDiv.attr("id",hour);
+    var outClassStr = "row time-block";
+    outClassStr += " past"; // [APPLY LOGIC TO THIS LATER]
+    rowDiv.attr("class",outClassStr);
+    rowDiv.text(`HiYa! ${hour}`);
+    $("#main-con").append(rowDiv);
+    this.createTimeRowTimeDiv(i,rowDiv);
+  }
+
+  createTimeRowTimeDiv(i,rowDiv){
+    var timeDiv = $("<div>");
+    var time = "in-time-" + i;
+    timeDiv.attr("id",time);
+    var timeClassStr = "col-2 col-md-1 hour text-center py-3";
+    timeDiv.attr("class",timeClassStr);
+    timeDiv.text(clock.getAmPmTime(i));
+    $(rowDiv).append(timeDiv);
+  }
+
+}
+var row = new Row();
+
+
+class Clock{
+
+  getAmPmTime(i){
+    if (i<12){
+      var rtnStr = i + " AM";
+    } else {
+      if (i > 12){
+        i -= 12;
+      }
+      var rtnStr = i + " PM";
+    }
+    return rtnStr;
+  }
+
+}
+var clock = new Clock();
+
+
+row.createTimeRows();
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -21,3 +81,14 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+
+
+
+{/* <div id="hour-9" class="row time-block past">
+<div class="col-2 col-md-1 hour text-center py-3">9AM</div>
+<textarea class="col-8 col-md-10 description" rows="3"> </textarea>
+<button class="btn saveBtn col-2 col-md-1" aria-label="save">
+  <i class="fas fa-save" aria-hidden="true"></i>
+</button>
+</div> */}
