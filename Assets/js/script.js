@@ -152,7 +152,6 @@ var row = new Row();
 
 
 function main() {
-  console.log(clock.getNowMonthDay());
   head.initHead();
   row.createTimeRows();
 }
