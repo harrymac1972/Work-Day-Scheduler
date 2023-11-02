@@ -4,11 +4,11 @@
 
 class Clock{
 
-  getAmPmTime(miliTm){
-    if (miliTm < 12){
+  getAmPmTime(miliTm) {
+    if (miliTm < 12) {
       var rtnStr = miliTm + " AM";
     } else {
-      if (miliTm > 12){
+      if (miliTm > 12) {
         miliTm -= 12;
       }
       var rtnStr = miliTm + " PM";
@@ -18,21 +18,45 @@ class Clock{
 
   getFormattedDate() {
     var nowDate = dayjs().format('dddd, MMMM D');
-    return nowDate;
+    var nowOrdinal = this.getOrdinal(this.getNowMonthDay());
+    var dateWithOrdinal = nowDate.concat(nowOrdinal);
+    return dateWithOrdinal;
   }
 
-  getNowHour(){
+  getNowHour() {
     var nowDate = new Date();
     var nowHour = nowDate.getHours();
     return nowHour;
   }
 
-  getTimeRowTense(miliTm){
+  getNowMonthDay() {
+    var nowDate = new Date();
+    var nowMonthDay = nowDate.getDate();
+    return nowMonthDay;
+  }
+
+  getOrdinal(monthDay) {
+    var stArr = [1,21,31];
+    if (stArr.includes(monthDay)) {
+      return "st";
+    }
+    var ndArr = [2,22];
+    if (ndArr.includes(monthDay)) {
+      return "nd";
+    }
+    var rdArr = [3,23];
+    if (rdArr.includes(monthDay)) {
+      return "rd";
+    }
+    return "th";
+  }
+
+  getTimeRowTense(miliTm) {
     var nowHour = this.getNowHour();
-    if (miliTm < nowHour){
+    if (miliTm < nowHour) {
       return "past";
     }
-    if (miliTm == nowHour){
+    if (miliTm == nowHour) {
       return "present";
     }
     return "future";
@@ -71,13 +95,13 @@ class Row{
   createTimeRows() {
     var mainCon = $("#main-con");
     mainCon.attr("class","container-fluid px-5");
-    for (var militaryTime=9; militaryTime<18; militaryTime++){
+    for (var militaryTime=9; militaryTime<18; militaryTime++) {
       var miliTm = militaryTime;
       this.createTimeRowOuterDiv(miliTm);
     }
   }
 
-  createTimeRowOuterDiv(miliTm){
+  createTimeRowOuterDiv(miliTm) {
     var rowDiv = $("<div>");
     var hour = "hour-" + miliTm;
     rowDiv.attr("id",hour);
@@ -88,7 +112,7 @@ class Row{
     this.createTimeRowTimeDiv(miliTm,rowDiv);
   }
 
-  createTimeRowTimeDiv(miliTm,rowDiv){
+  createTimeRowTimeDiv(miliTm,rowDiv) {
     var timeDiv = $("<div>");
     var time = "in-time-" + miliTm;
     timeDiv.attr("id",time);
@@ -99,7 +123,7 @@ class Row{
     this.createTimeRowTextArea(rowDiv);
   }
 
-  createTimeRowTextArea(rowDiv){    
+  createTimeRowTextArea(rowDiv) {    
     var textArea = $("<textarea>");
     textArea.attr("class","col-8 col-md-10 description");
     textArea.attr("rows",3);
@@ -107,7 +131,7 @@ class Row{
     this.createTimeRowButton(rowDiv);
   }
 
-  createTimeRowButton(rowDiv){
+  createTimeRowButton(rowDiv) {
     var timeBtn = $("<btn>");
     timeBtn.attr("class","btn saveBtn col-2 col-md-1");
     timeBtn.attr("aria-label","save");
@@ -127,7 +151,8 @@ var row = new Row();
 //#region INIT
 
 
-function main(){
+function main() {
+  console.log(clock.getNowMonthDay());
   head.initHead();
   row.createTimeRows();
 }
