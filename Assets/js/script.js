@@ -10,30 +10,30 @@ class Row{
   }
 
   createTimeRows() {
-    for (var i=9; i<18; i++){ // military time
-      this.createTimeRowOuterDiv(i);
+    for (var miliTm=9; miliTm<18; miliTm++){ // military time
+      this.createTimeRowOuterDiv(miliTm);
     }
   }
 
-  createTimeRowOuterDiv(i){
+  createTimeRowOuterDiv(miliTm){
     var rowDiv = $("<div>");
-    var hour = "hour-" + i;
+    var hour = "hour-" + miliTm;
     rowDiv.attr("id",hour);
     var outClassStr = "row time-block";
     outClassStr += " past"; // [APPLY LOGIC TO THIS LATER]
     rowDiv.attr("class",outClassStr);
     rowDiv.text(`HiYa! ${hour}`);
     $("#main-con").append(rowDiv);
-    this.createTimeRowTimeDiv(i,rowDiv);
+    this.createTimeRowTimeDiv(miliTm,rowDiv);
   }
 
-  createTimeRowTimeDiv(i,rowDiv){
+  createTimeRowTimeDiv(miliTm,rowDiv){
     var timeDiv = $("<div>");
-    var time = "in-time-" + i;
+    var time = "in-time-" + miliTm;
     timeDiv.attr("id",time);
     var timeClassStr = "col-2 col-md-1 hour text-center py-3";
     timeDiv.attr("class",timeClassStr);
-    timeDiv.text(clock.getAmPmTime(i));
+    timeDiv.text(clock.getAmPmTime(miliTm));
     $(rowDiv).append(timeDiv);
   }
 
@@ -43,14 +43,14 @@ var row = new Row();
 
 class Clock{
 
-  getAmPmTime(i){
-    if (i<12){
-      var rtnStr = i + " AM";
+  getAmPmTime(miliTm){
+    if (miliTm<12){
+      var rtnStr = miliTm + " AM";
     } else {
-      if (i > 12){
-        i -= 12;
+      if (miliTm > 12){
+        miliTm -= 12;
       }
-      var rtnStr = i + " PM";
+      var rtnStr = miliTm + " PM";
     }
     return rtnStr;
   }
