@@ -123,7 +123,7 @@ class Row{
     this.createTimeRowTextArea(rowDiv);
   }
 
-  createTimeRowTextArea(rowDiv) {    
+  createTimeRowTextArea(rowDiv) {
     var textArea = $("<textarea>");
     textArea.attr("class","col-8 col-md-10 description");
     textArea.attr("rows",3);
