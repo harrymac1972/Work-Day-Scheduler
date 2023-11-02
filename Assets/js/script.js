@@ -1,9 +1,48 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+
+//#region CLASSES
 
 
-class Banner{
+class Clock{
+
+  getAmPmTime(miliTm){
+    if (miliTm < 12){
+      var rtnStr = miliTm + " AM";
+    } else {
+      if (miliTm > 12){
+        miliTm -= 12;
+      }
+      var rtnStr = miliTm + " PM";
+    }
+    return rtnStr;
+  }
+
+  getFormattedDate() {
+    var nowDate = dayjs().format('dddd, MMMM D');
+    return nowDate;
+  }
+
+  getNowHour(){
+    var nowDate = new Date();
+    var nowHour = nowDate.getHours();
+    return nowHour;
+  }
+
+  getTimeRowTense(miliTm){
+    var nowHour = this.getNowHour();
+    if (miliTm < nowHour){
+      return "past";
+    }
+    if (miliTm == nowHour){
+      return "present";
+    }
+    return "future";
+  }
+
+}
+var clock = new Clock();
+
+
+class Head{
 
   initHead() {
     var headCon = $("#head-con");
@@ -19,12 +58,12 @@ class Banner{
     var headP2 = $("<p>");
     headP2.attr("id","currentDay");
     headP2.attr("class","lead");
-    headP2.text("[DATE HERE Bucko!]");
+    headP2.text(clock.getFormattedDate());
     $("#head-con").append(headP2);
   }
 
 }
-var banner = new Banner();
+var head = new Head();
 
 
 class Row{
@@ -83,71 +122,27 @@ class Row{
 var row = new Row();
 
 
-class Clock{
+//#endregion
 
-  getAmPmTime(miliTm){
-    if (miliTm < 12){
-      var rtnStr = miliTm + " AM";
-    } else {
-      if (miliTm > 12){
-        miliTm -= 12;
-      }
-      var rtnStr = miliTm + " PM";
-    }
-    return rtnStr;
-  }
-
-  getNowHour(){
-    var nowDate = new Date();
-    var nowHour = nowDate.getHours();
-    return nowHour;
-  }
-
-  getTimeRowTense(miliTm){
-    var nowHour = this.getNowHour();
-    if (miliTm < nowHour){
-      return "past";
-    }
-    if (miliTm == nowHour){
-      return "present";
-    }
-    return "future";
-  }
-
-}
-var clock = new Clock();
-
-
+//#region INIT
 
 
 function main(){
-  banner.initHead();
+  head.initHead();
   row.createTimeRows();
 }
 
 main();
 
 
+//#endregion
 
 
 
 
 
 
-/* <header class="p-5 mb-4">
-<h1 class="display-3">Work Day Scheduler</h1>
-<p class="lead">A simple calendar app for scheduling your work day</p>
-<p id="currentDay" class="lead">[ DATE GOES HERE ]</p> */
-
-
-
-
-
-
-
-
-
-$(function () {
+// $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -166,15 +161,4 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
-
-
-
-
-/* {<div id="hour-9" class="row time-block past">
-<div class="col-2 col-md-1 hour text-center py-3">9AM</div>
-<textarea class="col-8 col-md-10 description" rows="3"> </textarea>
-<button class="btn saveBtn col-2 col-md-1" aria-label="save">
-  <i class="fas fa-save" aria-hidden="true"></i>
-</button>
-</div>}*/
+// });
