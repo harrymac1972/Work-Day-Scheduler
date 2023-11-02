@@ -103,8 +103,8 @@ class Row{
 
   createTimeRowOuterDiv(miliTm) {
     var rowDiv = $("<div>");
-    var hour = "hour-" + miliTm;
-    rowDiv.attr("id",hour);
+    var hourId = "hour-" + miliTm;
+    rowDiv.attr("id",hourId);
     var outClassStr = "row time-block ";
     outClassStr += clock.getTimeRowTense(miliTm);
     rowDiv.attr("class",outClassStr);
