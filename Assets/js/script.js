@@ -93,7 +93,14 @@ class Clock{
 }
 var clock = new Clock();
 
-row.createTimeRows();
+
+
+
+function main(){
+  row.createTimeRows();
+}
+
+main();
 
 
 
