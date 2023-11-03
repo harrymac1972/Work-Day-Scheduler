@@ -169,8 +169,8 @@ class Row {
     for (var militaryTime=9; militaryTime<18; militaryTime++) {
       var miliTm = militaryTime;
       var key = "id-" + miliTm;
-      var storedValue = this.getValue(key);
-      var textID = this.getTextID(miliTm);
+      var storedValue = storage.getValue(key);
+      var textID = storage.getTextID(miliTm);
       $(textID).text(storedValue);
     }
   }
