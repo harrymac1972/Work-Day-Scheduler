@@ -68,7 +68,18 @@ var clock = new Clock();
 
 class Head {
 
-  initHead() {
+  blipFeedback(miliTm) {
+    $("#feedback").text("Appointment Added to");
+    $("#feedback-red").text("localStorage");
+    $("#feedback-check").text("\u2713");
+    setTimeout(() => {      
+      $("#feedback").text("");
+      $("#feedback-red").text("");
+      $("#feedback-check").text("");
+    }, 2050);
+  }
+
+  init() {
     var headCon = $("#head-con");
     headCon.attr("class","p-5 mb-4 text-center");
     var headTitle = $("<h1>");
@@ -86,6 +97,21 @@ class Head {
     $("#head-con").append(headP2);
   }
 
+  initFeedback(mainCon) {
+    var feedbackDiv = $("<div>");
+    feedbackDiv.attr("id","feedback-div");
+    var feedbackH6 = $("<h6>");
+    feedbackH6.attr("id","feedback");
+    var feedbackH6red = $("<h6>");
+    feedbackH6red.attr("id","feedback-red");
+    var feedbackCheck = $("<h6>");
+    feedbackCheck.attr("id","feedback-check");
+    mainCon.append(feedbackDiv);
+    feedbackDiv.append(feedbackH6);
+    feedbackDiv.append(feedbackH6red);
+    feedbackDiv.append(feedbackCheck);
+  }
+
 }
 var head = new Head();
 
@@ -100,6 +126,7 @@ class Row {
   createAll() {
     var mainCon = $("#main-con");
     mainCon.attr("class","container-fluid px-5");
+    head.initFeedback(mainCon);
     for (var militaryTime=9; militaryTime<18; militaryTime++) {
       var miliTm = militaryTime;
       this.createOuterDiv(miliTm);
@@ -143,18 +170,19 @@ class Row {
     timeBtn.attr("class","btn saveBtn col-2 col-md-1");
     timeBtn.attr("aria-label","save");
     $(rowDiv).append(timeBtn);
-    this.makeListenerBtn(miliTm,timeBtn);
+    this.makeBtnListener(miliTm,timeBtn);
     var italicStuff = $("<i>");
     italicStuff.attr("class","fas fa-save");
     italicStuff.attr("aria-hidden","true");
     $(timeBtn).append(italicStuff);
   }
 
-  makeListenerBtn(miliTm,timeBtn) {
+  makeBtnListener(miliTm,timeBtn) {
     timeBtn.on('click', function() {
       var keyVal = "id-" + miliTm;
       var textVal = storage.getTextFromTextArea(miliTm);
       storage.setKeyValue(keyVal,textVal);
+      head.blipFeedback(miliTm);
     });
   }
   
@@ -203,7 +231,7 @@ storage = new Storage();
 
 
 function main() {
-  head.initHead();
+  head.init();
   row.createAll();
   row.updateAllFromStorage();
 }
