@@ -64,3 +64,27 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+#feedback-div {
+  display: flex;
+  justify-content: center;
+}
+
+#main-con {
+  border-top: 5px black solid;
+  margin-top: -3em;
+}
+
+#feedback
+#feedback-red {
+  font-weight: bolder;
+}
+
+#feedback-red {
+  color: red;
+  margin: 0 .5em;
+}
+
+#feedback-check {
+  font-weight:900;
+}
