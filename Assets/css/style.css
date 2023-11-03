@@ -71,7 +71,7 @@ textarea {
 }
 
 #main-con {
-  border-top: 5px black solid;
+  border-top: 5px rgb(0, 0, 0) solid;
   margin-top: -3em;
 }
 
