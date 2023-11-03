@@ -165,6 +165,16 @@ class Row {
     $(timeBtn).append(italicStuff);
   }
 
+  updateAllFromStorage() {
+    for (var militaryTime=9; militaryTime<18; militaryTime++) {
+      var miliTm = militaryTime;
+      var key = "id-" + miliTm;
+      var storedValue = this.getValue(key);
+      var textID = this.getTextID(miliTm);
+      $(textID).text(storedValue);
+    }
+  }
+
 }
 var row = new Row();
 
@@ -172,9 +182,14 @@ var row = new Row();
 class Storage {
 
   getTextFromTextArea(row) {
-    var textID = "#text-" + row;
+    var textID = this.getTextID(row);
     var textVal = $(textID).val();
     return textVal;
+  }
+
+  getTextID(row) {
+    var textID = "#text-" + row;
+    return textID;
   }
 
   getValue(key) {
@@ -197,6 +212,7 @@ storage = new Storage();
 function main() {
   head.initHead();
   row.createTimeRows();
+  row.updateAllFromStorage();
 }
 
 main();
