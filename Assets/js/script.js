@@ -69,10 +69,13 @@ var clock = new Clock();
 class Head {
 
   blipFeedback(miliTm) {
+    var btnID = storage.getBtnID(miliTm);
+    $(btnID).css("background-color", "lightblue");
     $("#feedback").text("Appointment Added to");
     $("#feedback-red").text("localStorage");
     $("#feedback-check").text("\u2713");
-    setTimeout(() => {      
+    setTimeout(() => {
+      $(btnID).css("background-color","#06AED5");  
       $("#feedback").text("");
       $("#feedback-red").text("");
       $("#feedback-check").text("");
@@ -167,6 +170,8 @@ class Row {
 
   createBtn(miliTm,rowDiv) {
     var timeBtn = $("<btn>");
+    var btnId = "btn-" + miliTm;
+    timeBtn.attr("id",btnId);
     timeBtn.attr("class","btn saveBtn col-2 col-md-1");
     timeBtn.attr("aria-label","save");
     $(rowDiv).append(timeBtn);
@@ -201,6 +206,11 @@ var row = new Row();
 
 
 class Storage {
+
+  getBtnID(row) {
+    var btnID = "#btn-" + row;
+    return btnID;
+  }
 
   getTextFromTextArea(row) {
     var textID = this.getTextID(row);
