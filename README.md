@@ -17,6 +17,8 @@ That's a very convenient feature of Javascript.
 I also chose to have the Save Button change colour for the same amount of time that the feedback is in the header.
 This let's the user see that their data was updated into local storage without scrolling up.
 
+It will also be seen that I've chosen to express myself through the code with well named functions, etc. in lieu of comments that can easily be deleted.  I think that the srategy has served the purpose.
+
 ## Installation
 
 Repository location:        https://github.com/harrymac1972/Work-Day-Scheduler
