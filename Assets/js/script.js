@@ -2,7 +2,7 @@
 //#region CLASSES
 
 
-class Clock{
+class Clock {
 
   getAmPmTime(miliTm) {
     if (miliTm < 12) {
@@ -66,7 +66,7 @@ class Clock{
 var clock = new Clock();
 
 
-class Head{
+class Head {
 
   initHead() {
     var headCon = $("#head-con");
@@ -90,7 +90,26 @@ class Head{
 var head = new Head();
 
 
-class Row{
+class Row {
+
+  constructor() {
+    this.focusBtn = 0;
+    this.focusText = 0;
+  }
+  
+  createListenerBtn(miliTm,timeBtn) {
+    timeBtn.on('click', function() {
+      alert(`${miliTm} BTN clicked`);
+      this.focusBtn = miliTm;
+    });
+  }
+  
+  createListenerText(miliTm,textArea) {
+    textArea.on('click', function() {
+      alert(`${miliTm} TEXT clicked`);
+      this.focusText = miliTm;
+    });
+  }
   
   createTimeRows() {
     var mainCon = $("#main-con");
@@ -120,22 +139,24 @@ class Row{
     timeDiv.attr("class",timeClassStr);
     timeDiv.text(clock.getAmPmTime(miliTm));
     $(rowDiv).append(timeDiv);
-    this.createTimeRowTextArea(rowDiv);
+    this.createTimeRowTextArea(miliTm,rowDiv);
   }
 
-  createTimeRowTextArea(rowDiv) {
+  createTimeRowTextArea(miliTm,rowDiv) {
     var textArea = $("<textarea>");
     textArea.attr("class","col-8 col-md-10 description");
     textArea.attr("rows",3);
     $(rowDiv).append(textArea);
-    this.createTimeRowButton(rowDiv);
+    this.createListenerText(miliTm,textArea);
+    this.createTimeRowButton(miliTm,rowDiv);
   }
 
-  createTimeRowButton(rowDiv) {
+  createTimeRowButton(miliTm,rowDiv) {
     var timeBtn = $("<btn>");
     timeBtn.attr("class","btn saveBtn col-2 col-md-1");
     timeBtn.attr("aria-label","save");
     $(rowDiv).append(timeBtn);
+    this.createListenerBtn(miliTm,timeBtn);
     var italicStuff = $("<i>");
     italicStuff.attr("class","fas fa-save");
     italicStuff.attr("aria-hidden","true");
@@ -162,8 +183,8 @@ main();
 //#endregion
 
 
-
-
+// HARRY:
+// NOTE: put the listener on the div with ID as event bubbling will occur
 
 
 // $(function () {
