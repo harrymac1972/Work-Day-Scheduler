@@ -99,14 +99,14 @@ class Row {
   
   createListenerBtn(miliTm,timeBtn) {
     timeBtn.on('click', function() {
-      alert(`${miliTm} BTN clicked`);
-      this.focusBtn = miliTm;
+      var keyVal = "id-" + miliTm;
+      var textVal = storage.getTextFromTextArea(miliTm);
+      storage.setKeyValue(keyVal,textVal);
     });
   }
   
   createListenerText(miliTm,textArea) {
     textArea.on('click', function() {
-      alert(`${miliTm} TEXT clicked`);
       this.focusText = miliTm;
     });
   }
@@ -144,14 +144,16 @@ class Row {
 
   createTimeRowTextArea(miliTm,rowDiv) {
     var textArea = $("<textarea>");
+    var textId = "text-" + miliTm;
+    textArea.attr("id",textId);
     textArea.attr("class","col-8 col-md-10 description");
     textArea.attr("rows",3);
     $(rowDiv).append(textArea);
     this.createListenerText(miliTm,textArea);
-    this.createTimeRowButton(miliTm,rowDiv);
+    this.createTimeRowBtn(miliTm,rowDiv);
   }
 
-  createTimeRowButton(miliTm,rowDiv) {
+  createTimeRowBtn(miliTm,rowDiv) {
     var timeBtn = $("<btn>");
     timeBtn.attr("class","btn saveBtn col-2 col-md-1");
     timeBtn.attr("aria-label","save");
@@ -166,6 +168,26 @@ class Row {
 }
 var row = new Row();
 
+
+class Storage {
+
+  getTextFromTextArea(row) {
+    var textID = "#text-" + row;
+    var textVal = $(textID).val();
+    return textVal;
+  }
+
+  getValue(key) {
+    var value = localStorage.getItem(key);
+    return value;
+  }
+
+  setKeyValue(key,value) {
+    localStorage.setItem(key,value);
+  }
+
+}
+storage = new Storage();
 
 //#endregion
 
